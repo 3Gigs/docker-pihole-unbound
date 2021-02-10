@@ -11,7 +11,7 @@ Note that the Docker-compose file mounts to **~/.pi and ~/.unbound**. Change thi
 ## Instructions
 Before you get started check to see if your firewall rules block ports **53, 67/udp, 80/tcp, 443/tcp, 5053/udp**
 1. Get [Docker](https://docs.docker.com/engine/install/) **(Raspbian users MUST download via convenience script)** and [Docker-composer](https://docs.docker.com/compose/install/)
-2. Clone this repository ```git-clone https://github.com/3Gigs/docker-pihole-unbound/```
+2. Clone this repository ```git clone https://github.com/3Gigs/docker-pihole-unbound/```
 3. Make any necessary modifications to docker-compose.yml (You may want to change Pi-Hole environment variables **TZ:**, **WEBPASSWORD:**)
 4. Run ```docker-compose up --detach```  
 
