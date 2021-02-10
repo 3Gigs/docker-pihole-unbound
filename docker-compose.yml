@@ -1,0 +1,39 @@
+version: "3.9"
+services:
+         pihole:
+                container_name: pihole
+                image: pihole/pihole:latest
+                ports:
+                        - "53:53/tcp"
+                        - "53:53/udp"
+                        - "67:67/udp"
+                        - "80:80/tcp"
+                        - "443:443/tcp"
+                environment:
+                        TZ: 'America/Los_Angeles'
+                        DNS1: '172.26.0.3#5053'
+                volumes:
+                        - '${HOME}/.pi/pihole/:/etc/pihole/:rw'
+                        - '${HOME}/.pi/etc-dnsmasq.d/:/etc/dnsmasq.d/:rw'
+                networks:
+                        pihole-unbound:
+                                ipv4_address: 172.16.238.02
+                restart: unless-stopped
+         unbound:
+                 container_name: unbound
+                 image: klutchell/unbound:latest
+                 ports:
+                         - "5053:5053/udp"
+                 volumes:
+                         - '${HOME}/.unbound/etc/unbound/unbound.conf.d/pi-hole.conf:/opt/unbound/etc/unbound/unbound.conf.d/pi-hole.conf:rw'
+                 networks:
+                         pihole-unbound:
+                                 ipv4_address: 172.16.238.03
+
+                 restart: unless-stopped
+networks:
+        pihole-unbound:
+                ipam:
+                 driver: default
+                 config:
+                         - subnet: "172.16.238.0/24"
