@@ -11,7 +11,7 @@ services:
                         - "443:443/tcp"
                 environment:
                         TZ: 'America/Los_Angeles'
-                        DNS1: '172.26.0.3#5053'
+                        DNS1: '172.16.238.3#5053'
                 volumes:
                         - '${HOME}/.pi/pihole/:/etc/pihole/:rw'
                         - '${HOME}/.pi/etc-dnsmasq.d/:/etc/dnsmasq.d/:rw'
@@ -26,6 +26,7 @@ services:
                          - "5053:5053/udp"
                  volumes:
                          - '${HOME}/.unbound/etc/unbound/unbound.conf.d/pi-hole.conf:/opt/unbound/etc/unbound/unbound.conf.d/pi-hole.conf:rw'
+                         - '/var/log:/var/log'
                  networks:
                          pihole-unbound:
                                  ipv4_address: 172.16.238.03
